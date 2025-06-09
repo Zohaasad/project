@@ -1,0 +1,6 @@
+#include<iostream>
+#include"String.h"
+#include<"myvetor.h"
+int main (){
+return 0 ;
+}
