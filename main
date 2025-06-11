@@ -45,6 +45,27 @@ class hardcard: public Card{
     }
     
 };
+class player {
+    protected:
+    String name;
+    int score;
+    public:
+    player (String n):name(n),score(0){}
+    virtual~player(){}
+    String getname()const {
+        return name;
+    }
+    int getscore()const{
+        return score;
+    }
+    void addscore(){
+        score++;
+    }
+    virtual pair<int,int>pick(const myvector<bool>&revealed)=0; 
+    
+};
+//we use pair because we have to return 2 position on board at same time to show if both the cards are same or different 
+
 
 int main (){
 return 0 ;
