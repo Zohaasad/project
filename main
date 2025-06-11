@@ -18,6 +18,19 @@ class Card{
     virtual void display()const =0;
     
 };
+class simplecard: public Card{
+    char symbol ;
+    public:
+    simplecard():symbol(' '){}
+    
+    simplecard(char s): symbol(s){}
+    String getsymbol()const override{
+        return String (&symbol);
+    }
+    void display()const override{
+        cout<<symbol;
+    }
+};
 int main (){
 return 0 ;
 }
