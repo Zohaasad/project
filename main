@@ -31,6 +31,21 @@ class simplecard: public Card{
         cout<<symbol;
     }
 };
+class hardcard: public Card{
+    String symbol;
+    public:
+    hardcard():symbol(" "){}
+    hardcard(const String &s):symbol(s){}
+    String getsymbol()const override{
+        return symbol;
+        
+    }
+    void display()const override {
+        cout<<symbol;
+    }
+    
+};
+
 int main (){
 return 0 ;
 }
