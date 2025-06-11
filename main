@@ -15,7 +15,7 @@ class Card{
     void setmatched(bool m ){
         matched=m;
     }
-    virtual void dispaly()const =0;
+    virtual void display()const =0;
     
 };
 int main (){
