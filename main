@@ -1,6 +1,23 @@
 #include<iostream>
 #include"String.h"
 #include<"myvetor.h"
+class Card{
+    protected:
+    bool matched;
+    public:
+    Card():matched(false){}
+    virtual ~Card(){}
+    virtual String getsymbol() const=0;
+    bool ismatched()const {
+        return matched;
+        
+    }
+    void setmatched(bool m ){
+        matched=m;
+    }
+    virtual void dispaly()const =0;
+    
+};
 int main (){
 return 0 ;
 }
