@@ -1,6 +1,51 @@
 #include<iostream>
 #include"String.h"
 #include<"myvetor.h"
+class logger{
+    public:
+    static logger & getInstance(){
+        static logger instance;
+        return instance;
+    }
+    void initialize(const String & filename ){
+        if(log_file_.is_open()){
+            cout<<"logger is already initialized "<<endl;
+            return ;
+        }
+        log_file_.open(filename.c_str(),ios::out );
+        if(!log_file_){
+            cout<<"failed to open "<<filename<<endl;
+            exit(EXIT_FAILURE);
+        }
+    }
+    void cleanup(){
+        if(log_file_.is_open()){
+            log_file_.close();
+        }
+    }
+    void writeerror(const String & error_message){
+        if(!log_file_.is_open()){
+            cout<<"logger is not initialized"<<endl;
+           exit(EXIT_FAILURE);
+        }
+        time_t now =time(nullptr);
+        tm* local_time=localtime(&now);
+        char timestamp[20];
+        strftime(timestamp,sizeof(timestamp),"%Y-%m-%d %H:%M:%S",local_time);
+        
+        log_file_<<"["<<timestamp<<"] error" <<error_message<<endl;
+    }
+    
+
+    logger (const logger &)=delete;
+    logger &operator=(const logger &)=delete;
+     
+private:
+logger(){}
+~logger(){}
+ofstream log_file_;
+};
+
 class Card{
     protected:
     bool matched;
