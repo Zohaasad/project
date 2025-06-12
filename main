@@ -107,6 +107,41 @@ class Board {
     void sethardmode(bool hm){
         hardmode=hm;
     }
+ void setupsimple(){
+        try{
+            hardmode=false;
+            for(int i=0,j=0;i<8;i++){
+                sc[j]=simplecard('A'+i);
+                card[j]=&sc[j];
+                j++;
+            
+           
+                sc[j]=simplecard('A'+i);
+                card[j]=&sc[j];
+                j++;
+            }
+            myvector<int>indices(size,0);
+            for(int i=0;i<size;i++)indices[i]=i;
+            random_device rd;
+            mt19937 g(rd());
+            myvector<int>shuffledindices(size);
+            for(int i=0;i<size;i++)
+            shuffledindices[i]=indices[i];
+            shuffle(shuffledindices.begin(),shuffledindices.end(),g);
+            Card* temp[16];
+            for(int i=0;i<size;i++)
+            temp[i]=card[shuffledindices[i]];
+            for(int i=0;i<size;i++)
+            card[i]=temp[i];
+            for(int i=0;i<size;i++)
+            card[i]->setmatched(false);
+            
+        }
+        catch(const char * msg){
+            logger::getInstance().writeerror(String("exception in the set up of simple:")+msg);
+            throw;
+        }
+    }
    
      void show(const myvector<bool>&revealed){
         try{
