@@ -255,6 +255,26 @@ void showall(){
        }
    }
     //msg stands for message 
+bool saveboard(const String &filename){
+    ofstream ofs(filename.c_str(),ios::binary|ios::trunc);
+    if(!ofs)return false;
+    ofs.write((char*)&hardmode,sizeof(hardmode));
+    for(int i=0;i<size;i++){
+        bool matched=card[i]->ismatched();
+        ofs.write((char*)&matched,sizeof(matched));
+        if(hardmode){
+        String s=((hardcard*)card[i])->getsymbol();
+        
+            int len=s.length();
+            ofs.write((char*)&len,sizeof(len));
+            ofs.write(s.c_str(),len);
+        }else{
+          char s=((simplecard*)card[i])->getsymbol()[0];
+          ofs.write(&s,sizeof(s));
+        }
+    }
+    return true;
+}
     
 };
 Board *Board::instance=nullptr;
