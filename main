@@ -310,6 +310,9 @@ void updatememory (const myvector<bool>&revealed){
         logger::getInstance().writeerror(String("exception in ai player in upadte memory part :")+msg);
     }
 }
+void remembercards(const myvector<bool>&revealed){
+     updatememory(revealed);
+ }
 
 };
 
