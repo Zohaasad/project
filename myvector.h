@@ -235,7 +235,19 @@ class myvector{
        cap=other.cap;
        other.cap=tempcap;
    }
-    
+     T* begin(){
+        return arr;
+    }
+    T*end(){
+        return arr+len;
+    }
+    const T *begin()const {
+        return arr;
+    }
+    const T *end()const {
+        return arr+len;
+    }
+
    
 };
 #endif
