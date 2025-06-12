@@ -275,7 +275,42 @@ bool saveboard(const String &filename){
     }
     return true;
 }
-    
+     bool loadboard(const String &filename){
+    ifstream ifs(filename.c_str(),ios::binary);
+    if(!ifs)return false;
+    bool mode;
+    ifs.read((char*)&mode,sizeof(mode));
+    hardmode=mode;
+    if(hardmode){
+        for(int i =0;i<size;i++){
+            bool matched;
+            ifs.read((char*)&matched,sizeof(matched));
+            int len;
+            ifs.read((char*)&len,sizeof(len));
+            char *buffer=new char [len+1];
+            ifs.read(buffer,len);
+            buffer[len]='\0';
+            hc[i]=hardcard(String(buffer));
+            hc[i].setmatched(matched);
+            card[i]=&hc[i];
+            delete []buffer;
+        }
+    }
+    else{
+        for(int i=0;i<size;i++){
+            bool matched;
+            ifs.read((char*)&matched,sizeof(matched));
+            char s;
+            ifs.read(&s,sizeof(s));
+            sc[i]=simplecard(s);
+            sc[i].setmatched(matched);
+            card[i]=&sc[i];
+            
+        }
+    }
+    return true;
+}
+
 };
 Board *Board::instance=nullptr;
 class player {
