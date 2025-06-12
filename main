@@ -142,7 +142,50 @@ class Board {
             throw;
         }
     }
-   
+    void setuphard(){
+      try{
+          hardmode=true;
+          myvector<String>hardsymbols;
+          hardsymbols.push(String("PWTU"));
+           hardsymbols.push(String("FOQR"));
+            hardsymbols.push(String("MNIR"));
+             hardsymbols.push(String("ZXST"));
+              hardsymbols.push(String("TZWY"));
+              hardsymbols.push(String("BMQU"));
+               hardsymbols.push(String("SWVO"));
+                hardsymbols.push(String("GDFC"));
+                for(int i=0,j=0;i<8;i++){
+                    hc[j]=hardcard(hardsymbols[i]);
+                    card[j]=&hc[j];
+                    j++;
+                     hc[j]=hardcard(hardsymbols[i]);
+                    card[j]=&hc[j];
+                    j++;
+                    
+                }
+                myvector<int >indices(size,0);
+                for(int i=0;i<size;i++)
+                indices[i]=i;
+                random_device rd;
+                mt19937 g(rd());
+                myvector<int>shuffledindices(size);
+                for(int i=0;i<size;i++)
+                shuffledindices[i]=indices[i];
+                shuffle(shuffledindices.begin(),shuffledindices.end(),g);
+                Card*temp[16];
+                for(int i=0;i<size;i++)
+                temp[i]=card[shuffledindices[i]];
+                for(int i=0;i<size;i++)
+                card[i]=temp[i];
+                for(int i=0;i<size;i++)
+                card[i]->setmatched(false);
+                
+      }
+      catch(const char *msg){
+          logger::getInstance().writeerror(String("exception in setup of hard")+msg);
+          throw;
+      }
+  }
      void show(const myvector<bool>&revealed){
         try{
             cout<<"\nboard:\n";
