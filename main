@@ -241,6 +241,43 @@ class humanplayer:public player {
     }
 }
 };
+class aiplayer :public player{
+    myvector<String>symbols;
+    myvector<myvector<int >>indices;
+    public:
+    aiplayer(String n ):player(n){}
+    void cleanupmemory(const myvector <bool>&revealed){
+        try{
+            int i=0;
+            while(i<symbols.size()){
+                myvector<int>&index=indices[i];
+                int j=0;
+                while(j<index.size()){
+                    if(revealed[index[j]]||Board::getinstance()->getcard(index[j])->ismatched()){
+                        index.deleteat(j);
+                    }
+                    else{
+                        j++;
+                    }
+                }
+                if(index.size()==0){
+                    symbols.deleteat(i);
+                    indices.deleteat(i);
+                }
+                else{
+                    i++;
+                }
+            }
+        }
+        catch(const char*msg){
+            logger::getInstance().writeerror(String("there is exception in ai player in clean up part ")+msg);
+        }
+    }
+    
+
+
+};
+
 int main (){
 return 0 ;
 }
