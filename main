@@ -176,7 +176,7 @@ void showall(){
            
        }
    }
-    
+    //msg stands for message 
     
 };
 Board *Board::instance=nullptr;
