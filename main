@@ -274,7 +274,42 @@ class aiplayer :public player{
         }
     }
     
-
+void updatememory (const myvector<bool>&revealed){
+    try{
+        for(int i =0;i<revealed.size();i++){
+            if(revealed[i]&&!Board::getinstance()->getcard(i)->ismatched()){
+                String value =Board::getinstance()->getcard(i)->getsymbol();
+                int find=-1;
+                for(int j=0;j<symbols.size();j++){
+                    if(symbols[j]==value){
+                        find=j;
+                        break;
+                    }
+                }
+                if(find==-1){
+                    symbols.push(value);
+                    myvector<int> v;
+                    v.push(i);
+                    indices.push(v);
+                }
+                else{
+                    bool alreadythere =false;
+                    for(int k=0;k<indices[find].size();k++){
+                        if(indices[find][k]==i)
+                        alreadythere=true;
+                        
+                    }
+                    if(!alreadythere)
+                    indices[find].push(i);
+                }
+                
+            }
+        }
+    }
+    catch(const char *msg){
+        logger::getInstance().writeerror(String("exception in ai player in upadte memory part :")+msg);
+    }
+}
 
 };
 
