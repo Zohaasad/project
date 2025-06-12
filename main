@@ -90,6 +90,55 @@ class hardcard: public Card{
     }
     
 };
+class Board {
+    private:
+    static Board* instance;
+    static const int size=16;
+    bool hardmode;
+    simplecard sc[16];
+    hardcard hc[16];
+    Card * card[16];
+    Board(): hardmode(false){}
+    public:
+    static Board *getinstance(){
+        static Board instance;
+        return &instance;
+    }
+    void sethardmode(bool hm){
+        hardmode=hm;
+    }
+   
+     void show(const myvector<bool>&revealed){
+        try{
+            cout<<"\nboard:\n";
+            for(int i=0;i<size;i++){
+                if(i%4==0)
+                cout<<"\n";
+                if(card[i]->ismatched()){card[i]->display();
+                    cout<<" ";
+                }
+                else if(revealed[i]){card[i]->display();
+                cout<<" ";}
+                else 
+                if(hardmode){
+                    cout<<"****";
+                }
+                else cout<<"*";
+            }
+            cout<<"\n";
+        }
+        catch(const char *msg){
+            logger::getInstance().writeerror(String ("exception in show ")+msg);
+        }
+    }
+    int getsize()const {
+       return size;
+   }
+   bool ishardmode()const {
+       return hardmode;
+   }
+};
+Board *Board::instance=nullptr;
 class player {
     protected:
     String name;
