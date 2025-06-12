@@ -137,6 +137,47 @@ class Board {
    bool ishardmode()const {
        return hardmode;
    }
+void showall(){
+       try {
+           cout<<"\n board previous state :\n";
+           for(int i=0;i<size;i++){
+               if(i%4==0)
+               cout<<"\n";
+               cout<<"["<<i<<"]";
+               if(card[i]->ismatched()){
+                   card[i]->display();
+                   cout<<" ";
+               }
+               else 
+               if(hardmode){
+               cout<<"****";
+                   
+               }
+               else cout<<"*";
+           }
+           cout<<"\n";
+       }
+       catch(const char*msg){
+           logger::getInstance().writeerror(String("exception in show all: ")+msg);
+           
+       }
+   }
+   Card *getcard (int index){
+       return card[index];
+   }
+   void setmatched(int i ,int j){
+       try {
+           card[i]->setmatched(true);
+           card[j]->setmatched(true);
+           
+       }
+       catch(const char *msg){
+           logger::getInstance().writeerror(String("exception in set matched:")+msg);
+           
+       }
+   }
+    
+    
 };
 Board *Board::instance=nullptr;
 class player {
