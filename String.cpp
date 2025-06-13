@@ -518,3 +518,12 @@ String operator+(const String &s1,const char *s2){
 String operator+(const char* s1,const String &s2){
     return String(s1).concat(s2);
 }
+
+
+bool operator!=(const char *cstr,const String &s){
+    return!(s==cstr);
+    
+}
+String operator+(const String &s1 ,const String &s2){
+    return s1.concat(s2);
+}
