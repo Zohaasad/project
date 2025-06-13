@@ -527,3 +527,10 @@ bool operator!=(const char *cstr,const String &s){
 String operator+(const String &s1 ,const String &s2){
     return s1.concat(s2);
 }
+bool operator==(const char *cstr,const String &s){
+    return s==cstr;
+}
+bool operator!=(const String &s,const char *cstr){
+    return!(s==cstr);
+}
+
