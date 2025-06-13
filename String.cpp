@@ -533,4 +533,11 @@ bool operator==(const char *cstr,const String &s){
 bool operator!=(const String &s,const char *cstr){
     return!(s==cstr);
 }
-
+bool operator==(const String &s,const char *cstr){
+    int i=0;
+    while(s[i]&& cstr[i]){
+        if(s[i]!=cstr[i])return false;
+        i++;
+    }
+    return (s[i]==0 && cstr[i]==0);
+}
