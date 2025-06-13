@@ -510,3 +510,11 @@ ostream& operator<<(ostream& out ,const String &s){
     out<<s.c_str();
     return out;
 }
+
+
+String operator+(const String &s1,const char *s2){
+    return s1.concat(String(s2));
+}
+String operator+(const char* s1,const String &s2){
+    return String(s1).concat(s2);
+}
