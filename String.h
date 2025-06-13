@@ -71,5 +71,17 @@ String itos(int num);
   
 String &operator =(const String&other);
     ~String ();
+const char*c_str()const;
+int length()const;
 };
+istream& operator>>(istream &in, String &s);
+ostream& operator<<(ostream& out ,const String &s);
+bool operator==(const String &s,const char *cstr);
+bool operator==(const char *cstr,const String &s);
+bool operator!=(const String &s,const char *cstr);
+bool operator!=(const char *cstr,const String &s);
+String operator+(const String &s1 ,const String &s2);
+String operator+(const String &s1,const char *s2);
+String operator+(const char* s1,const String &s2);
+bool operator==(const String&a,const String &b);
 #endif
