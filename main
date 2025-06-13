@@ -545,7 +545,16 @@ class game{
             throw;
         }
     }
-    
+    ~game(){
+        try {
+            delete p1;
+            if(p2!=p1)
+            delete p2;
+        }
+        catch(const char *msg){
+            logger::getInstance().writeerror(String("exception in destructor of game: ")+msg);
+        }
+    }
    
        
 };
