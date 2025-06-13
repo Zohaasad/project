@@ -522,6 +522,34 @@ pair<int,int>pick(const myvector<bool>&revealed)override{
 
 };
 
+class game{
+    private:
+    player *p1;
+    player *p2;
+    myvector<bool>revealed;
+    int turn;
+    aiplayer *ap;
+    public:
+    game (bool hard,bool vsai):turn (0),p1(nullptr),p2(nullptr),ap(nullptr){
+        try{
+            revealed= myvector<bool>(Board::getinstance()->getsize(),false);
+            p1=new humanplayer("player1");
+            if(vsai){
+                ap=new aiplayer("ai");
+                p2=ap;
+            }
+            else p2=new humanplayer("player2");
+        }
+        catch(const char *msg){
+            logger::getInstance().writeerror(String("exception in game :")+msg);
+            throw;
+        }
+    }
+    
+   
+       
+};
+
 int main (){
 return 0 ;
 }
