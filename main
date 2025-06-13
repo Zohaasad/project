@@ -555,7 +555,22 @@ class game{
             logger::getInstance().writeerror(String("exception in destructor of game: ")+msg);
         }
     }
-   
+   void printresult(){
+        try{
+            cout<<"game over\n";
+            cout<<p1->getname()<<"score:"<<p1->getscore()<<"\n";
+            cout<<p2->getname()<<"score:"<<p2->getscore()<<"\n";
+            if(p1->getscore()>p2->getscore())
+            cout<<p1->getname()<<"wins!\n";
+            else if (p2->getscore()>p1->getscore())
+            cout<<p2->getname()<<"wins!\n";
+            else
+            cout<<"its a tie !\n";
+        }
+        catch(const char *msg){
+            logger::getInstance().writeerror(String("exception in printing the result:")+msg);
+        }
+    }
        
 };
 
