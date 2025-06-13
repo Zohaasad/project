@@ -124,9 +124,9 @@ class Board {
             for(int i=0;i<size;i++)indices[i]=i;
             random_device rd;
             mt19937 g(rd());
-            myvector<int>shuffledindices(size);
-            for(int i=0;i<size;i++)
-            shuffledindices[i]=indices[i];
+            myvector<int>shuffledindices;
+           for(int i=0;i<size;i++)
+           shuffledindices.push(indices[i]);
             shuffle(shuffledindices.begin(),shuffledindices.end(),g);
             Card* temp[16];
             for(int i=0;i<size;i++)
