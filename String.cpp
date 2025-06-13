@@ -500,3 +500,13 @@ const char*String::c_str()const{
 int String::length()const{
     return len;
 }
+istream& operator>>(istream &in, String &s){
+    char buf[1024];
+    in>>buf;
+    s=String(buf);
+    return in ;
+}
+ostream& operator<<(ostream& out ,const String &s){
+    out<<s.c_str();
+    return out;
+}
