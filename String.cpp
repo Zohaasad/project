@@ -495,7 +495,7 @@ bool operator==(const String&a,const String &b){
     return true;
 }
 const char*String::c_str()const{
-    retrun cs;
+    return cs;
 }
 int String::length()const{
     return len;
