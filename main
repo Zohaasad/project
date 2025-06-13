@@ -446,6 +446,79 @@ void updatememory (const myvector<bool>&revealed){
 void remembercards(const myvector<bool>&revealed){
      updatememory(revealed);
  }
+pair<int,int>pick(const myvector<bool>&revealed)override{
+    try{
+        cleanupmemory(revealed);
+        updatememory(revealed);
+        for(int i=0;i<symbols.size();i++){
+            if(indices[i].size()>=2){
+                return {
+                    indices[i][0],indices[i][1]
+                };
+                
+            }
+        }
+        for(int i =0;i<symbols.size();i++){
+            if(indices[i].size()==1){
+                int knownindex=indices[i][0];
+                myvector<int>unknown;
+                for(int j=0;j<revealed.size();j++){
+                    if(!revealed[j]&&!Board::getinstance()->getcard(j)->ismatched()&&j!=knownindex){
+                        String symbolatj=Board::getinstance()->getcard(j)->getsymbol();
+                        int find=-1;
+                        for(int k=0;k<symbols.size();k++){
+                            if(symbols[k]==symbolatj){
+                                for(int m=0;m<indices[i].size();m++){
+                                    if(indices[k][m]==j)
+                                    find=k;
+                                    
+                                }
+                            }
+                        }
+                        if(find==-1)
+                        unknown.push(j);
+                        
+                    }
+                }
+                if (unknown.size()>0){
+                    random_device rd ;
+                    mt19937 g(rd());
+                    myvector<int >temp;
+                    for(int p=0;p<unknown.size();p++)
+                    temp.push(unknown[p]);
+                    shuffle(temp.begin(),temp.end(),g);
+                    return{
+                        knownindex, temp[0]
+                        
+                    };
+                }
+            }
+        }
+        myvector<int >choices;
+        for(int i=0;i<revealed.size();i++){
+            if(!revealed[i]&& !Board::getinstance()->getcard(i)->ismatched())
+            choices.push(i);
+            
+        }
+            random_device rd;
+            mt19937 g(rd());
+            myvector<int >temp;
+            for(int p=0;p<choices.size();p++)
+            temp.push(choices[p]);
+            shuffle(temp.begin(),temp.end(),g);
+            if(choices.size()==1)
+            return{
+                choices[0],choices[0]
+            };
+           return {
+               temp[0],temp[1]
+           };
+        }
+        catch(const char *msg){
+            logger::getInstance().writeerror(String("exception in ai player in picking ")+msg);
+            throw;
+        }
+    }
 
 };
 
