@@ -192,6 +192,7 @@ class Board {
             for(int i=0;i<size;i++){
                 if(i%4==0)
                 cout<<"\n";
+             cout<<"["<<i<<"]";
                 if(card[i]->ismatched()){card[i]->display();
                     cout<<" ";
                 }
