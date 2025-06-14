@@ -125,8 +125,10 @@ using namespace std;
                 else 
                 if(hardmode){
                     cout<<"****";
+                    cout<<" ";
                 }
                 else cout<<"*";
+                cout<<" ";
             }
             cout<<"\n";
         }
