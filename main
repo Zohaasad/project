@@ -655,6 +655,65 @@ class game{
 }
 };
 
-int main (){
-return 0 ;
+
+
+int main(){
+    logger::getInstance().initialize("log.txt");
+    cout<<"memory game!\n";
+    cout<<"1.start new game ."<<endl;
+    cout<<"2.show previous saved board (view only)."<<endl;
+    cout<<"choose:";
+    int choice;
+    cin>>choice;
+    if(cin.fail()){
+        cout<<"invalid input";
+        logger::getInstance().writeerror("invalid input at main");
+        logger::getInstance().cleanup();
+        return 1;
+    }
+    if(choice==2){
+        if(!Board::getinstance()->loadboard("board_save.txt")){
+            cout<<"failed to load board\n";
+            logger::getInstance().writeerror("failed to load board");
+        }
+        else {
+            Board::getinstance()->showall();
+        }
+        cout<<"no further play allowed ";
+        logger::getInstance().cleanup();
+        return 0;
+    }
+    bool hard=false;
+    cout<<"1.simple"<<endl;
+    cout<<"2.hard"<<endl;
+    cout<<"choose mode:";
+    int mode;
+    cin>>mode;
+    if(cin.fail()||(mode!=1&&mode!=2)){
+        cout<<"invalid mode\n";
+        logger::getInstance().writeerror("invalid mode input ");
+        logger::getInstance().cleanup();
+        return 1;
 }
+hard=(mode==2);
+Board::getinstance()->sethardmode(hard);
+cout<<"1. 2players"<<endl;
+cout<<"2. vs ai "<<endl;
+cout<<"choose:";
+int playermode;
+cin>>playermode;
+if(cin.fail()||(playermode!=1&&playermode!=2)){
+    cout<<"invalid player \n";
+    logger::getInstance().writeerror("invalid player choose");
+    logger::getInstance().cleanup();
+    return 1;
+}
+if(hard)
+Board::getinstance()->setuphard();
+else
+Board::getinstance()->setupsimple();
+   game g(hard,playermode==2);
+   g.play();
+return 0;
+}
+   
